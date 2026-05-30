@@ -139,8 +139,8 @@ slide_subheader_style = ParagraphStyle(
     'SlideSubheaderStyle',
     parent=styles['Normal'],
     fontName='Helvetica',
-    fontSize=11,
-    leading=15,
+    fontSize=13,
+    leading=17,
     textColor=MUTED_TEXT,
     spaceAfter=25
 )
@@ -149,8 +149,8 @@ body_style = ParagraphStyle(
     'BodyStyle',
     parent=styles['Normal'],
     fontName='Helvetica',
-    fontSize=9,
-    leading=13.5,
+    fontSize=11,
+    leading=15.5,
     textColor=SOFT_BLACK
 )
 
@@ -165,8 +165,8 @@ card_header_style = ParagraphStyle(
     'CardHeaderStyle',
     parent=styles['Normal'],
     fontName='Times-Bold',
-    fontSize=12,
-    leading=16,
+    fontSize=14,
+    leading=18,
     textColor=GOLD_ACCENT,
     spaceAfter=6
 )
@@ -175,8 +175,8 @@ card_body_style = ParagraphStyle(
     'CardBodyStyle',
     parent=styles['Normal'],
     fontName='Helvetica',
-    fontSize=8.5,
-    leading=12.5,
+    fontSize=10.5,
+    leading=14.5,
     textColor=SOFT_BLACK
 )
 
@@ -184,7 +184,8 @@ table_header_style = ParagraphStyle(
     'TableHeaderStyle',
     parent=styles['Normal'],
     fontName='Helvetica-Bold',
-    fontSize=9,
+    fontSize=11,
+    leading=15,
     textColor=colors.white,
     alignment=0
 )
@@ -195,14 +196,44 @@ story = []
 # =========================================================================
 # SLIDE 1: Title Slide
 # =========================================================================
-story.append(Spacer(1, 1.8 * inch))
+story.append(Spacer(1, 0.8 * inch))
 story.append(Paragraph("VendorSentinel", title_style))
 story.append(Paragraph("Always-On AI-Powered Third-Party Vendor Risk Intelligence", subtitle_style))
+story.append(Paragraph("Continuous third-party security sweeps using Bright Data crawlers and AI scoring engines.", 
+                       ParagraphStyle('CoverDescStyle', parent=styles['Normal'], fontName='Helvetica', fontSize=12, leading=17, textColor=SOFT_BLACK, alignment=1)))
 story.append(Spacer(1, 0.4 * inch))
-story.append(Paragraph("🛡️ Track 3: Web Data & Compliance  |  Bright Data Hackathon 2026", meta_style))
-story.append(Spacer(1, 0.2 * inch))
-story.append(Paragraph("Created & Deployed by:  Hafiz Abdul Rehman", author_style))
-story.append(Paragraph("Live UI:  https://vendor-sentinel.vercel.app/  &bull;  Backend API: https://vendorsentinel.onrender.com", author_style))
+
+# Create the gorgeous bottom metadata card matching NeuralNexus template
+cover_card_content = [
+    [
+        Paragraph("<b>🛡️ Track 3: Web Data & Compliance  |  Bright Data Hackathon 2026</b>", 
+                  ParagraphStyle('CardTrack', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=10.5, leading=15, textColor=NAVY_BLUE, alignment=1)),
+        ""
+    ],
+    [
+        Paragraph("<b>Team Members:</b>", ParagraphStyle('CardLabelGold', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=9.5, leading=14, textColor=GOLD_ACCENT, alignment=2)),
+        Paragraph("Hafiz Abdul Rehman &bull; Meer Hamza &bull; Sayyam Akram", ParagraphStyle('CardValBlack', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=9.5, leading=14, textColor=SOFT_BLACK))
+    ],
+    [
+        Paragraph("Live App:", ParagraphStyle('CardLabelMuted', parent=styles['Normal'], fontName='Courier', fontSize=9, leading=13, textColor=MUTED_TEXT, alignment=2)),
+        Paragraph("https://vendor-sentinel.vercel.app/", ParagraphStyle('CardValMuted', parent=styles['Normal'], fontName='Courier', fontSize=9, leading=13, textColor=MUTED_TEXT))
+    ],
+    [
+        Paragraph("GitHub:", ParagraphStyle('CardLabelMuted', parent=styles['Normal'], fontName='Courier', fontSize=9, leading=13, textColor=MUTED_TEXT, alignment=2)),
+        Paragraph("https://github.com/Abdul-Insighht/VendorSentinel.git", ParagraphStyle('CardValMuted', parent=styles['Normal'], fontName='Courier', fontSize=9, leading=13, textColor=MUTED_TEXT))
+    ]
+]
+t_cover_card = Table(cover_card_content, colWidths=[1.8 * inch, 6.2 * inch])
+t_cover_card.setStyle(TableStyle([
+    ('BACKGROUND', (0,0), (-1,-1), CARD_BG),
+    ('BOX', (0,0), (-1,-1), 1, BORDER_COLOR),
+    ('SPAN', (0,0), (1,0)),
+    ('PADDING', (0,0), (-1,-1), 8),
+    ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+    ('BOTTOMPADDING', (0,0), (-1,0), 10),
+]))
+
+story.append(Table([[t_cover_card]], colWidths=[8 * inch], style=[('ALIGN', (0,0), (-1,-1), 'CENTER')]))
 story.append(PageBreak())
 
 # =========================================================================
@@ -314,7 +345,7 @@ t_sc1.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,-1), CARD_BG), ('BOX', (0,0
 
 sol_col2 = [
     [Paragraph("<b>The Four Signal Dimensions</b>", card_header_style)],
-    [Paragraph("• **Signal One (News & Media)**: Utilizes Bright Data SERP API to index search results for published breaches, regulatory fines, and GDPR class action lawsuits.<br/>• **Signal Two (Exposed Leaks)**: Employs Web Unlocker to search public code repos and Pastebin for domain password/API key exposures.<br/>• **Signal Three (Hiring Spikes)**: Integrates Web Scraper API to track security recruitment spikes on LinkedIn.<br/>• **Signal Four (Reputation checks)**: Runs Scraping Browser CDP to crawl posture patches and employee reviews.", card_body_style)]
+    [Paragraph("• <b>Signal One (News & Media)</b>: Utilizes Bright Data SERP API to index search results for published breaches, regulatory fines, and GDPR class action lawsuits.<br/>• <b>Signal Two (Exposed Leaks)</b>: Employs Web Unlocker to search public code repos and Pastebin for domain password/API key exposures.<br/>• <b>Signal Three (Hiring Spikes)</b>: Integrates Web Scraper API to track security recruitment spikes on LinkedIn.<br/>• <b>Signal Four (Reputation checks)</b>: Runs Scraping Browser CDP to crawl posture patches and employee reviews.", card_body_style)]
 ]
 t_sc2 = Table(sol_col2, colWidths=[4.7 * inch])
 t_sc2.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,-1), CARD_BG), ('BOX', (0,0), (-1,-1), 1, BORDER_COLOR), ('PADDING', (0,0), (-1,-1), 16), ('VALIGN', (0,0), (-1,-1), 'TOP')]))
@@ -349,7 +380,7 @@ t_stats_5.setStyle(TableStyle([
 col_data_5 = [
     [
         [Paragraph("Operational Framework", card_header_style),
-         Paragraph("The first layer of defense uses Bright Data's **SERP API** to query Google, Bing, and major search engines dynamically for each onboarded vendor. By combining the vendor's company name with threat keywords (GDPR violation, ransomware, data leak, lawsuit), it parses organic search items in real-time and normalizes them into structured JSON arrays containing title, publish date, snippet, and source link.", card_body_style)]
+         Paragraph("The first layer of defense uses Bright Data's <b>SERP API</b> to query Google, Bing, and major search engines dynamically for each onboarded vendor. By combining the vendor's company name with threat keywords (GDPR violation, ransomware, data leak, lawsuit), it parses organic search items in real-time and normalizes them into structured JSON arrays containing title, publish date, snippet, and source link.", card_body_style)]
     ],
     [Spacer(1, 6)],
     [
@@ -383,7 +414,7 @@ story.append(Paragraph("Scraping public paste boards and public GitHub code comm
 leak_data = [
     [
         Paragraph("<b>Bypassing Anti-Bot Blocks</b>", card_header_style),
-        Paragraph("Public repositories and paste boards aggressively block automated crawler requests with CAPTCHAs, IP bans, and browser fingerprinting. Bright Data **Web Unlocker** proxy handles all this transparently: it automatically rotates residential IP addresses, solves CAPTCHAs, and handles challenges to return full raw HTML text.", card_body_style)
+        Paragraph("Public repositories and paste boards aggressively block automated crawler requests with CAPTCHAs, IP bans, and browser fingerprinting. Bright Data <b>Web Unlocker</b> proxy handles all this transparently: it automatically rotates residential IP addresses, solves CAPTCHAs, and handles challenges to return full raw HTML text.", card_body_style)
     ],
     [
         Paragraph("<b>Target Search Query</b>", card_header_style),
@@ -435,7 +466,7 @@ t_stats_7.setStyle(TableStyle([
 col_data_7 = [
     [
         [Paragraph("LinkedIn Datasets Scrapes", card_header_style),
-         Paragraph("When an enterprise is quietly dealing with a serious security failure or a breach, one of the most reliable early warning indicators is a sudden, urgent spike in security recruitment. Bright Data's **Web Scraper API** provides robust, pre-built scrapers for LinkedIn company pages. We query the vendor's job board to fetch recent job listings, avoiding custom scrapers.", card_body_style)]
+         Paragraph("When an enterprise is quietly dealing with a serious security failure or a breach, one of the most reliable early warning indicators is a sudden, urgent spike in security recruitment. Bright Data's <b>Web Scraper API</b> provides robust, pre-built scrapers for LinkedIn company pages. We query the vendor's job board to fetch recent job listings, avoiding custom scrapers.", card_body_style)]
     ],
     [Spacer(1, 6)],
     [
@@ -469,7 +500,7 @@ story.append(Paragraph("Crawling Glassdoor morale ratings and corporate trust bl
 reput_data = [
     [
         Paragraph("<b>Playwright CDP Connection</b>", card_header_style),
-        Paragraph("The fourth layer utilizes Bright Data's **Scraping Browser**, a full Playwright-based browser that natively handles JS-heavy pages, dynamically rendering content and transparently handling anti-bot scripts.", card_body_style)
+        Paragraph("The fourth layer utilizes Bright Data's <b>Scraping Browser</b>, a full Playwright-based browser that natively handles JS-heavy pages, dynamically rendering content and transparently handling anti-bot scripts.", card_body_style)
     ],
     [
         Paragraph("<b>Glassdoor Employee Reviews</b>", card_header_style),
@@ -507,7 +538,7 @@ stats_content_9 = [
     [Paragraph("<b>Generative AI Scoring Engine</b>", ParagraphStyle('Label9', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=10, leading=14, textColor=MUTED_TEXT, alignment=1))],
     [Spacer(1, 15)],
     [Paragraph("🧠 <b>AI Output Elements</b>", card_header_style)],
-    [Paragraph("• **Risk Score (1-10)**<br/>• **Risk Level (Low-Critical)**<br/>• **Detailed Reasoning Logs**<br/>• **Mitigation Playbooks**", ParagraphStyle('Bullet9', parent=body_style, leading=15))]
+    [Paragraph("• <b>Risk Score (1-10)</b><br/>• <b>Risk Level (Low-Critical)</b><br/>• <b>Detailed Reasoning Logs</b><br/>• <b>Mitigation Playbooks</b>", ParagraphStyle('Bullet9', parent=body_style, leading=15))]
 ]
 t_stats_9 = Table(stats_content_9, colWidths=[3.2 * inch])
 t_stats_9.setStyle(TableStyle([
@@ -521,7 +552,7 @@ t_stats_9.setStyle(TableStyle([
 col_data_9 = [
     [
         [Paragraph("Multi-Source AI Synthesis", card_header_style),
-         Paragraph("After all 4 signal vectors are collected, they are normalized and passed to the **AI Scoring Engine** (GPT-4o-mini). Instead of simple rule-based metrics, the AI reasons over the combined signals, weighs their severities, and delivers a structured, evidence-backed report. It provides a numeric risk score (1.0-10.0), a plain-English explanation, and a step-by-step mitigation playbook for the security team.", card_body_style)]
+         Paragraph("After all 4 signal vectors are collected, they are normalized and passed to the <b>AI Scoring Engine</b> (GPT-4o-mini). Instead of simple rule-based metrics, the AI reasons over the combined signals, weighs their severities, and delivers a structured, evidence-backed report. It provides a numeric risk score (1.0-10.0), a plain-English explanation, and a step-by-step mitigation playbook for the security team.", card_body_style)]
     ],
     [Spacer(1, 6)],
     [
@@ -691,12 +722,12 @@ t_stats_13.setStyle(TableStyle([
 col_data_13 = [
     [
         [Paragraph("Bright Data Pipeline Layer", card_header_style),
-         Paragraph("• **SERP API**: Queries Google and Bing search engine results to index public media news.<br/>• **Web Unlocker**: Bypasses bot protections and CAPTCHAs to scan Pastebin.<br/>• **Web Scraper API**: Pulls structured LinkedIn job board listings without custom code.<br/>• **Scraping Browser**: Headless Playwright Chromium CDP sessions to audit compliance blogs.", card_body_style)]
+         Paragraph("• <b>SERP API</b>: Queries Google and Bing search engine results to index public media news.<br/>• <b>Web Unlocker</b>: Bypasses bot protections and CAPTCHAs to scan Pastebin.<br/>• <b>Web Scraper API</b>: Pulls structured LinkedIn job board listings without custom code.<br/>• <b>Scraping Browser</b>: Headless Playwright Chromium CDP sessions to audit compliance blogs.", card_body_style)]
     ],
     [Spacer(1, 6)],
     [
         [Paragraph("AI & Security Governance", card_header_style),
-         Paragraph("• **AI/ML API**: GPT-4o-mini chat completion endpoints to generate structured assessments.<br/>• **Environment Protection**: Dotenv environment variables (.env.example) safeguarding API keys.<br/>• **Windows Loop Policy**: Custom Proactor loop policy handling win32 subprocess limitations.", card_body_style)]
+         Paragraph("• <b>AI/ML API</b>: GPT-4o-mini chat completion endpoints to generate structured assessments.<br/>• <b>Environment Protection</b>: Dotenv environment variables (.env.example) safeguarding API keys.<br/>• <b>Windows Loop Policy</b>: Custom Proactor loop policy handling win32 subprocess limitations.", card_body_style)]
     ]
 ]
 t_col_13 = Table(col_data_13, colWidths=[6.3 * inch])
@@ -725,15 +756,15 @@ story.append(Paragraph("Step-by-step walkthrough to test every platform module l
 demo_steps = [
     [
         Paragraph("<b>1. Open Welcome Gate</b>", card_header_style),
-        Paragraph("Navigate to your live URL [https://vendor-sentinel.vercel.app](https://vendor-sentinel.vercel.app). Read the problem brief, and click **`Enter Security Dashboard →`** to bypass the gate.", card_body_style)
+        Paragraph("Navigate to your live URL <a href='https://vendor-sentinel.vercel.app'>https://vendor-sentinel.vercel.app</a>. Read the problem brief, and click <b>Enter Security Dashboard &rarr;</b> to bypass the gate.", card_body_style)
     ],
     [
         Paragraph("<b>2. Onboard Figma (Low Risk)</b>", card_header_style),
-        Paragraph("Go to `/vendors`, click **`+ Add Vendor`**, and onboard `Figma, Inc.` (domain: `figma.com`) with `Low` sensitivity. Scanners verify clean compliance audit playbooks, scoring **2.0 Low Risk**.", card_body_style)
+        Paragraph("Go to `/vendors`, click <b>+ Add Vendor</b>, and onboard `Figma, Inc.` (domain: `figma.com`) with `Low` sensitivity. Scanners verify clean compliance audit playbooks, scoring <b>2.0 Low Risk</b>.", card_body_style)
     ],
     [
         Paragraph("<b>3. Onboard Auth0 (Critical)</b>", card_header_style),
-        Paragraph("Onboard `Auth0 by Okta` (domain: `auth0.com`) with `Critical` sensitivity. Exposed credential scans match warnings on paste boards, and the AI Engine generates a **8.0 Critical Risk** rating.", card_body_style)
+        Paragraph("Onboard `Auth0 by Okta` (domain: `auth0.com`) with `Critical` sensitivity. Exposed credential scans match warnings on paste boards, and the AI Engine generates a <b>8.0 Critical Risk</b> rating.", card_body_style)
     ],
     [
         Paragraph("<b>4. Run Threat sweeps</b>", card_header_style),
@@ -741,7 +772,7 @@ demo_steps = [
     ],
     [
         Paragraph("<b>5. Verify Node Health</b>", card_header_style),
-        Paragraph("Navigate to `/settings`. Verify the golden threshold slider operates correctly, and see all **Bright Data Nodes** marked with pulsing green active indicators.", card_body_style)
+        Paragraph("Navigate to `/settings`. Verify the golden threshold slider operates correctly, and see all <b>Bright Data Nodes</b> marked with pulsing green active indicators.", card_body_style)
     ]
 ]
 t_demo = Table(demo_steps, colWidths=[2.8 * inch, 7.2 * inch])
