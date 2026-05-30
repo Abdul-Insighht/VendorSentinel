@@ -51,16 +51,7 @@ class NumberedCanvas(canvas.Canvas):
     def draw_background(self, page_count):
         self.saveState()
         
-        # 1. Fill entire slide background with light cream color
-        self.setFillColor(BG_COLOR)
-        self.rect(0, 0, 11 * inch, 8.5 * inch, fill=True, stroke=False)
-        
-        # 2. Page 1: draw vertical golden bar on left edge
-        if self._pageNumber == 1:
-            self.setFillColor(GOLD_ACCENT)
-            self.rect(0, 0, 0.3 * inch, 8.5 * inch, fill=True, stroke=False)
-            
-        # 3. Subsequent slides: draw elegant headers and footers
+        # 1. Subsequent slides: draw elegant headers and footers (lines and page numbers on top)
         if self._pageNumber > 1:
             self.setStrokeColor(BORDER_COLOR)
             self.setLineWidth(1)
@@ -789,6 +780,21 @@ story.append(t_sum)
 story.append(Spacer(1, 0.4 * inch))
 story.append(Paragraph("“VendorSentinel doesn't just scan vendors — it secures the supply chain.”", ParagraphStyle('Quote', parent=styles['Normal'], fontName='Times-Italic', fontSize=12, leading=16, textColor=GOLD_ACCENT, alignment=1)))
 
+# ── Background Drawing Callbacks ──────────────────────────────────
+def draw_first_page(canvas_obj, doc_obj):
+    canvas_obj.saveState()
+    canvas_obj.setFillColor(BG_COLOR)
+    canvas_obj.rect(0, 0, 11 * inch, 8.5 * inch, fill=True, stroke=False)
+    canvas_obj.setFillColor(GOLD_ACCENT)
+    canvas_obj.rect(0, 0, 0.3 * inch, 8.5 * inch, fill=True, stroke=False)
+    canvas_obj.restoreState()
+
+def draw_later_pages(canvas_obj, doc_obj):
+    canvas_obj.saveState()
+    canvas_obj.setFillColor(BG_COLOR)
+    canvas_obj.rect(0, 0, 11 * inch, 8.5 * inch, fill=True, stroke=False)
+    canvas_obj.restoreState()
+
 # ── Build Document ────────────────────────────────────────────────
-doc.build(story, canvasmaker=NumberedCanvas)
+doc.build(story, canvasmaker=NumberedCanvas, onFirstPage=draw_first_page, onLaterPages=draw_later_pages)
 print("PDF Presentation generated successfully!")
