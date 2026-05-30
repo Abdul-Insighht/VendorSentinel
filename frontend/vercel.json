@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://vendorsentinel-backend.onrender.com/api/:path*"
+      "destination": "https://vendorsentinel.onrender.com/api/:path*"
     },
     {
       "source": "/((?!api/).*)",
